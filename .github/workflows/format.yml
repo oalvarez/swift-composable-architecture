@@ -1,9 +1,9 @@
 name: Format
 
 on:
-  pull_request:
-    paths:
-      - '**.swift'
+  push:
+    branches:
+      - master
 
 jobs:
   swift_format:
@@ -11,15 +11,13 @@ jobs:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.head_ref }}
       - name: Install
         run: brew install swift-format
       - name: Format
         run: make format
-      - uses: stefanzweifel/git-auto-commit-action@v4.1.6
+      - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Run swift-format
-          branch: ${{ github.head_ref }}
+          branch: 'master'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

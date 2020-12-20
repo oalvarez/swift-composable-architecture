@@ -1,4 +1,4 @@
-import ComposableArchitectureTestSupport
+import ComposableArchitecture
 import GameCore
 import XCTest
 
@@ -13,7 +13,7 @@ class GameSwiftUITests: XCTestCase {
     reducer: gameReducer,
     environment: GameEnvironment()
   )
-  .scope(state: \.view, action: { $0 })
+  .scope(state: { $0.view })
 
   func testFlow_Winner_Quit() {
     self.store.assert(
